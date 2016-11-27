@@ -1,5 +1,6 @@
 .DEFAULT_GOAL := help
 version := 7.0.12
+PHP_NET_HOST := jp2.php.net
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -39,7 +40,7 @@ uninstall: ## 指定されたバージョンを~/.phpから削除します
 
 # ~~~~~~~~
 php-$(version).tar.bz2:
-	curl -Lo php-$(version).tar.bz2 "http://jp2.php.net/get/php-$(version).tar.bz2/from/this/mirror"
+	curl -Lo php-$(version).tar.bz2 "http://$(PHP_NET_HOST)/get/php-$(version).tar.bz2/from/this/mirror"
 
 php-$(version): php-$(version).tar.bz2
 	tar xf php-$(version).tar.bz2
