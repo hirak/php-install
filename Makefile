@@ -3,7 +3,7 @@ version := 7.0.12
 PHP_NET_HOST := jp2.php.net
 
 help: ## このヘルプを表示する
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 	@echo make clean version=7.0.0
 	@echo make install version=7.0.0
 	@echo make switch version=7.0.0
@@ -37,6 +37,14 @@ fullclean: ## 指定されたバージョンの関連ファイルを完全削除
 .PHONY: uninstall
 uninstall: ## 指定されたバージョンを~/.phpから削除します
 	rm -rf ~/.php/$(version)
+
+.PHONY: download-krakjoe
+download-krakjoe: ## download 7.X-RC
+	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/~krakjoe/php-$(version).tar.gz"
+
+.PHONY: download-tyrael
+download-tyrael: ## download 5.6RC
+	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/~tyrael/php-$(version).tar.gz"
 
 # ~~~~~~~~
 php-$(version).tar.bz2:
