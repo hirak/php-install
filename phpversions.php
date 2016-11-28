@@ -41,7 +41,7 @@ function main($argc, array $argv)
     return 0;
 }
 
-function say(string $str)
+function say($str)
 {
     echo $str, PHP_EOL;
 }
