@@ -57,7 +57,6 @@ php-$(version)/sapi/cli/php: php-$(version)
 	(cd php-$(version) && \
 	./configure \
 		--prefix=$(HOME)/.php/$(version) \
-		--enable-dtrace \
 		--enable-phpdbg \
 		--enable-phpdbg-webhelper \
 		--enable-pcntl \
