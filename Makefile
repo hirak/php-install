@@ -6,7 +6,7 @@ help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 	@echo make clean version=7.0.0
 	@echo make install version=7.0.0
-	@echo make switch version=7.0.0
+	@echo make use version=7.0.0
 
 .PHONY: current
 current: ## 現在のphp version
@@ -20,8 +20,8 @@ ls: ## マシンにインストールされているphpの一覧を取得しま�
 ls-remote: ## インストールできそうなstable版phpの一覧を表示します version不要
 	@php phpversions.php
 
-.PHONY: switch
-switch: ## マシンのデフォルトphpをversionに変更します
+.PHONY: use
+use: ## マシンのデフォルトphpをversionに変更します
 	@(cd ~/.php && rm current && ln -s $(version) current)
 	@php -v
 
@@ -44,7 +44,7 @@ download-krakjoe: ## download 7.X-RC
 
 .PHONY: download-tyrael
 download-tyrael: ## download 5.6RC
-	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/~tyrael/php-$(version).tar.gz"
+	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/tyrael/php-$(version).tar.gz"
 
 # ~~~~~~~~
 php-$(version).tar.bz2:
