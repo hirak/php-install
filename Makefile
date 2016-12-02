@@ -57,6 +57,8 @@ php-$(version)/sapi/cli/php: php-$(version)
 	(cd php-$(version) && \
 	./configure \
 		--prefix=$(HOME)/.php/$(version) \
+		--with-config-file-path=$(HOME)/.php/$(version)/etc/ \
+		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
 		--enable-phpdbg \
 		--enable-phpdbg-webhelper \
 		--enable-pcntl \
@@ -79,7 +81,10 @@ php-$(version)/sapi/cli/php: php-$(version)
 	make -j2 )
 
 ~/.php/$(version): php-$(version)/sapi/cli/php
-	(cd php-$(version) && make install)
+	(cd php-$(version) && make install && cp php.ini-development ~/.php/$(version)/etc/php.ini )
 
 .PHONY: install
 install: ~/.php/$(version)
+
+.PHONY: reinstall
+reinstall: uninstall clean install
