@@ -67,11 +67,11 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-exif \
 		--enable-sockets \
 		--enable-intl \
-		--with-icu-dir=/usr/local/opt/icu4c \
-		--with-openssl=/usr/local/opt/openssl \
-		--with-curl=/usr/local/opt/curl \
-		--with-readline=/usr/local/opt/readline \
-		--with-libxml-dir=/usr/local/opt/libxml2 \
+		--with-icu-dir=$(shell brew --prefix icu4c) \
+		--with-openssl=$(shell brew --prefix openssl) \
+		--with-curl=$(shell brew --prefix curl) \
+		--with-readline=$(shell brew --prefix readline) \
+		--with-libxml-dir=$(shell brew --prefix libxml2) \
 		--with-bz2 \
 		--enable-mbstring \
 		--enable-mysqlnd \
