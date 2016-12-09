@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-version := 7.0.12
+version := 7.1.0
 PHP_NET_HOST := jp2.php.net
 
 help: ## このヘルプを表示する
