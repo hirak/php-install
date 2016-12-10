@@ -73,6 +73,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-readline=$(shell brew --prefix readline) \
 		--with-libxml-dir=$(shell brew --prefix libxml2) \
 		--with-bz2 \
+		--with-zlib \
 		--enable-mbstring \
 		--enable-mysqlnd \
 		--with-pdo-mysql \
