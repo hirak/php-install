@@ -1,5 +1,6 @@
 .DEFAULT_GOAL := help
 version := 7.1.0
+tz := "Asia/Tokyo"
 PHP_NET_HOST := jp2.php.net
 
 help: ## このヘルプを表示する
@@ -82,7 +83,12 @@ php-$(version)/sapi/cli/php: php-$(version)
 	make -j2 )
 
 ~/.php/$(version): php-$(version)/sapi/cli/php
-	(cd php-$(version) && make install && cp php.ini-development ~/.php/$(version)/etc/php.ini )
+	(cd php-$(version) && \
+		make install && \
+		cp php.ini-development ~/.php/$(version)/etc/php.ini && \
+		mkdir ~/.php/$(version)/etc/php && \
+		echo date.timezone = $(tz) >> ~/.php/$(version)/etc/php/timezone.ini \
+		)
 
 .PHONY: install
 install: ~/.php/$(version)
