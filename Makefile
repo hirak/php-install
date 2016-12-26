@@ -5,9 +5,14 @@ PHP_NET_HOST := jp2.php.net
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-	@echo make clean version=7.0.0
-	@echo make install version=7.0.0
-	@echo make use version=7.0.0
+
+.PHONY: setup
+setup: ~/.php/ ## スクリプトを色々セットアップ
+
+~/.php/:
+	mkdir ~/.php/
+	echo export 'PATH=~/.php/current/bin:$PATH' >> ~/.bash_profile
+	brew install re2c bison icu4c openssl curl readline libxml2
 
 .PHONY: current
 current: ## 現在のphp version
