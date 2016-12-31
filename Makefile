@@ -78,6 +78,9 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-curl=$(shell brew --prefix curl) \
 		--with-readline=$(shell brew --prefix readline) \
 		--with-libxml-dir=$(shell brew --prefix libxml2) \
+		--with-gd \
+		--with-jpeg-dir=$(shell brew --prefix libjpeg) \
+		--with-png-dir=$(shell brew --prefix libpng) \
 		--with-bz2 \
 		--with-zlib \
 		--enable-mbstring \
