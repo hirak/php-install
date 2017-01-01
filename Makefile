@@ -117,6 +117,11 @@ pecl-build: ## peclライブラリをpeclコマンドではなくphpize & make�
 		rm -rf $(pecl)* package.xml; \
 	)
 
+.PHONY: pecl-uninstall
+pecl-uninstall: ## インストール済みのpeclライブラリを削除します
+	~/.php/current/bin/pecl uninstall $(pecl)
+	rm -f ~/.php/current/etc/php/$(pecl).ini
+
 ~/.php/current/etc/php/$(pecl).ini:
 	~/.php/current/bin/pecl install $(pecl)
 	@echo extension=$(pecl).so > ~/.php/current/etc/php/$(pecl).ini
