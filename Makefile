@@ -12,7 +12,7 @@ setup: ~/.php/ ## スクリプトを色々セットアップ
 ~/.php/:
 	mkdir ~/.php/
 	echo export 'PATH=~/.php/current/bin:$PATH' >> ~/.bash_profile
-	brew install re2c bison icu4c openssl curl readline libxml2
+	brew install re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg
 
 .PHONY: current
 current: ## 現在のphp version
@@ -66,7 +66,6 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-config-file-path=$(HOME)/.php/$(version)/etc/ \
 		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
 		--enable-phpdbg \
-		--enable-phpdbg-webhelper \
 		--enable-pcntl \
 		--enable-bcmath \
 		--enable-calendar \
@@ -97,6 +96,37 @@ php-$(version)/sapi/cli/php: php-$(version)
 		mkdir ~/.php/$(version)/etc/php && \
 		echo date.timezone = $(tz) >> ~/.php/$(version)/etc/php/timezone.ini \
 		)
+
+.PHONY: pecl-ls
+pecl-ls: ## currentバージョンに追加インストールされているpeclライブラリの一覧を出力します
+	@ls `~/.php/current/bin/php-config --extension-dir`
+
+.PHONY: pecl
+pecl: ~/.php/current/etc/php/$(pecl).ini ## peclライブラリをcurrentバージョンに対してインストールします。 make pecl pecl=memcached など。xdebugだけはmake xdebugでインストールしてください
+
+.PHONY: pecl-build
+pecl-build: ## peclライブラリをpeclコマンドではなくphpize & makeでインストールします。コンパイルオプションを手動で指定できます。 make pecl-build pecl=memcached options="--enable-memcached-igbinary"
+	~/.php/current/bin/pecl download $(pecl)
+	tar xf $(pecl)*.tgz
+	( cd $(pecl)* && \
+		~/.php/current/bin/phpize && \
+		./configure --with-php-config=${HOME}/.php/current/bin/php-config $(options) && \
+		make && make install && \
+		echo extension=$(pecl).so > ~/.php/current/etc/php/$(pecl).ini && \
+		cd .. && \
+		rm -rf $(pecl)* package.xml; \
+	)
+
+~/.php/current/etc/php/$(pecl).ini:
+	~/.php/current/bin/pecl install $(pecl)
+	@echo extension=$(pecl).so > ~/.php/current/etc/php/$(pecl).ini
+
+.PHONY: xdebug
+xdebug: ~/.php/current/etc/php/xdebug.ini ## xdebugをcurrentバージョンに対してインストールします。 make xdebug だけでよいです
+
+~/.php/current/etc/php/xdebug.ini:
+	~/.php/current/bin/pecl install xdebug
+	echo "zend_extension="`~/.php/current/bin/php-config --extension-dir`/xdebug.so > ~/.php/current/etc/php/xdebug.ini
 
 .PHONY: install
 install: ~/.php/$(version)
