@@ -12,7 +12,7 @@ setup: ~/.php/ ## スクリプトを色々セットアップ
 ~/.php/:
 	mkdir ~/.php/
 	echo export 'PATH=~/.php/current/bin:$PATH' >> ~/.bash_profile
-	brew install re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg
+	brew install autoconf re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg
 
 .PHONY: current
 current: ## 現在のphp version
