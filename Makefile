@@ -70,6 +70,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-bcmath \
 		--enable-calendar \
 		--enable-exif \
+		--enable-soap \
 		--enable-sockets \
 		--enable-intl \
 		--with-icu-dir=$(shell brew --prefix icu4c) \
