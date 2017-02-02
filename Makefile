@@ -65,6 +65,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--prefix=$(HOME)/.php/$(version) \
 		--with-config-file-path=$(HOME)/.php/$(version)/etc/ \
 		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
+		--disable-cgi \
 		--enable-phpdbg \
 		--enable-pcntl \
 		--enable-bcmath \
