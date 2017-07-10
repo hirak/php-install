@@ -52,6 +52,10 @@ download-krakjoe: ## download 7.X-RC
 download-tyrael: ## download 5.6RC
 	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/tyrael/php-$(version).tar.gz"
 
+.PHONY: download-remi
+download-remi: ## download 7.2.0
+	curl -Lo php-$(version).tar.bz2 "http://downloads.php.net/~remi/php-$(version).tar.gz"
+
 # ~~~~~~~~
 php-$(version).tar.bz2:
 	curl -Lo php-$(version).tar.bz2 "http://$(PHP_NET_HOST)/get/php-$(version).tar.bz2/from/this/mirror"
