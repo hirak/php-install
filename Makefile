@@ -2,6 +2,7 @@
 version := 7.1.0
 tz := "Asia/Tokyo"
 PHP_NET_HOST := jp2.php.net
+pecl_version := ""
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -104,7 +105,7 @@ pecl: ~/.php/current/etc/php/$(pecl).ini ## peclライブラリをcurrentバー�
 
 .PHONY: pecl-build
 pecl-build: ## peclライブラリをpeclコマンドではなくphpize & makeでインストールします。コンパイルオプションを手動で指定できます。 make pecl-build pecl=memcached options="--enable-memcached-igbinary"
-	~/.php/current/bin/pecl download $(pecl)
+	~/.php/current/bin/pecl download $(pecl)$(pecl-version)
 	tar xf $(pecl)*.tgz
 	( cd $(pecl)* && \
 		~/.php/current/bin/phpize && \
@@ -121,7 +122,7 @@ pecl-uninstall: ## インストール済みのpeclライブラリを削除しま
 	rm -f ~/.php/current/etc/php/$(pecl).ini
 
 ~/.php/current/etc/php/$(pecl).ini:
-	~/.php/current/bin/pecl install $(pecl)
+	~/.php/current/bin/pecl install $(pecl)$(pecl-version)
 	@echo extension=$(pecl).so > ~/.php/current/etc/php/$(pecl).ini
 
 .PHONY: xdebug
