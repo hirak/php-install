@@ -71,6 +71,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-soap \
 		--enable-sockets \
 		--enable-intl \
+		--enable-static=intl \
 		--with-icu-dir=$(shell brew --prefix icu4c) \
 		--with-openssl=$(shell brew --prefix openssl) \
 		--with-curl=$(shell brew --prefix curl) \
