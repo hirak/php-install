@@ -64,15 +64,13 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
 		--disable-cgi \
 		--enable-phpdbg \
+		--enable-fpm \
 		--enable-pcntl \
 		--enable-bcmath \
 		--enable-calendar \
 		--enable-exif \
 		--enable-soap \
 		--enable-sockets \
-		--enable-intl \
-		--enable-static=intl \
-		--with-icu-dir=$(shell brew --prefix icu4c) \
 		--with-openssl=$(shell brew --prefix openssl) \
 		--with-curl=$(shell brew --prefix curl) \
 		--with-readline=$(shell brew --prefix readline) \
