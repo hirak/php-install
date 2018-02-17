@@ -3,6 +3,7 @@ version := 7.1.0
 tz := "Asia/Tokyo"
 PHP_NET_HOST := jp2.php.net
 pecl_version := ""
+CXXFLAGS := -std=c++11
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -64,7 +65,10 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
 		--disable-cgi \
 		--enable-phpdbg \
+		--enable-intl \
+		--with-icu-dir=$(shell brew --prefix icu4c) \
 		--enable-fpm \
+		--with-mysqli \
 		--enable-pcntl \
 		--enable-bcmath \
 		--enable-calendar \
