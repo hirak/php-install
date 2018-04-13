@@ -65,8 +65,6 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-config-file-scan-dir=$(HOME)/.php/$(version)/etc/php/ \
 		--disable-cgi \
 		--enable-phpdbg \
-		--enable-intl \
-		--with-icu-dir=$(shell brew --prefix icu4c) \
 		--enable-fpm \
 		--with-mysqli \
 		--enable-pcntl \
