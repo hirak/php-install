@@ -80,8 +80,9 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--with-gd \
 		--with-jpeg-dir=$(shell brew --prefix libjpeg) \
 		--with-png-dir=$(shell brew --prefix libpng) \
-		--with-bz2 \
-		--with-zlib \
+		--with-bz2=$(shell brew --prefix bzip2) \
+		--with-zlib=$(shell brew --prefix zlib) \
+		--with-iconv=$(shell brew --prefix libiconv) \
 		--enable-mbstring \
 		--enable-mysqlnd \
 		--with-pdo-mysql \
