@@ -86,7 +86,6 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-mbstring \
 		--enable-mysqlnd \
 		--with-pdo-mysql \
-		--enable-zip \
 		--enable-re2c-cgoto && \
 	make -j2 )
 
