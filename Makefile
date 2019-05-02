@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
-version := 7.1.0
+version := 7.3.14
 tz := "Asia/Tokyo"
-PHP_NET_HOST := jp2.php.net
+PHP_NET_HOST := www.php.net
 pecl_version := ""
 CXXFLAGS := -std=c++11
 
@@ -52,7 +52,7 @@ download-qa: ## download from qa.php.net. need $user & $version
 
 # ~~~~~~~~
 php-$(version).tar.bz2:
-	curl -Lo php-$(version).tar.bz2 "http://$(PHP_NET_HOST)/get/php-$(version).tar.bz2/from/this/mirror"
+	curl -Lo php-$(version).tar.bz2 "http://$(PHP_NET_HOST)/distributions/php-$(version).tar.bz2"
 
 php-$(version): php-$(version).tar.bz2
 	tar xf php-$(version).tar.bz2
