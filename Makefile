@@ -4,6 +4,7 @@ tz := "Asia/Tokyo"
 PHP_NET_HOST := www.php.net
 pecl_version := ""
 CXXFLAGS := -std=c++11
+PKG_CONFIG_PATH := $(shell brew --prefix openssl)/lib/pkgconfig
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -14,7 +15,7 @@ setup: ~/.php/ ## スクリプトを色々セットアップ
 ~/.php/:
 	mkdir ~/.php/
 	echo export 'PATH=~/.php/current/bin:$PATH' >> ~/.bash_profile
-	brew install autoconf re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg
+	brew install autoconf re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg bzip2 libiconv
 
 .PHONY: current
 current: ## 現在のphp version
@@ -30,7 +31,7 @@ ls-remote: ## インストールできそうなstable版phpの一覧を表示し
 
 .PHONY: use
 use: ## マシンのデフォルトphpをversionに変更します
-	@(cd ~/.php && rm current && ln -s $(version) current)
+	@(cd ~/.php && rm current; ln -s $(version) current)
 	@php -v
 
 .PHONY: clean
@@ -73,7 +74,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-exif \
 		--enable-soap \
 		--enable-sockets \
-		--with-openssl=$(shell brew --prefix openssl) \
+		--with-openssl="$(shell brew --prefix openssl)" \
 		--with-curl=$(shell brew --prefix curl) \
 		--with-readline=$(shell brew --prefix readline) \
 		--with-libxml-dir=$(shell brew --prefix libxml2) \
@@ -87,7 +88,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-mysqlnd \
 		--with-pdo-mysql \
 		--enable-re2c-cgoto && \
-	make -j2 )
+	make -j$(shell sysctl -n hw.ncpu) )
 
 ~/.php/$(version): php-$(version)/sapi/cli/php
 	(cd php-$(version) && \
