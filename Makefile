@@ -53,7 +53,7 @@ download-qa: ## download from qa.php.net. need $user & $version
 
 # ~~~~~~~~
 php-$(version).tar.bz2:
-	curl -Lo php-$(version).tar.bz2 "http://$(PHP_NET_HOST)/distributions/php-$(version).tar.bz2"
+	curl -Lo php-$(version).tar.bz2 "https://$(PHP_NET_HOST)/distributions/php-$(version).tar.bz2"
 
 php-$(version): php-$(version).tar.bz2
 	tar xf php-$(version).tar.bz2
