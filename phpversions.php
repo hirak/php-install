@@ -4,7 +4,7 @@ function main($argc, array $argv)
 {
     $host = getenv('PHP_NET_HOST');
     if (!$host) {
-        $host = 'http://jp2.php.net';
+        $host = 'https://www.php.net';
     }
 
     $phpall = download($host . '/releases/index.php?serialize');
