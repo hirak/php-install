@@ -113,7 +113,7 @@ pecl-build: ## peclライブラリをpeclコマンドではなくphpize & make�
 	( cd $(pecl)* && \
 		~/.php/current/bin/phpize && \
 		./configure --with-php-config=${HOME}/.php/current/bin/php-config $(options) && \
-		make && make install && \
+		make -j$(shell sysctl -n hw.ncpu) && make install && \
 		echo extension=$(pecl).so > ~/.php/current/etc/php/$(pecl).ini && \
 		cd .. && \
 		rm -rf $(pecl)* package.xml; \
