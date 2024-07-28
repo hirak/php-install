@@ -1,7 +1,23 @@
 <?php
 
+const CACHE_FILE = __DIR__ . '/ls-remote.txt';
+
 function main($argc, array $argv)
 {
+    if (file_exists(CACHE_FILE)) {
+        $last_modified = filemtime(CACHE_FILE);
+        if ($last_modified > strtotime('-2 weeks')) {
+            $bytes = readfile(CACHE_FILE);
+            if ($bytes !== false) {
+                return 0;
+            }
+            error_log('cache file is broken. remove ' . CACHE_FILE);
+            return 1;
+        }
+    }
+
+    ob_start();
+
     $host = getenv('PHP_NET_HOST');
     if (!$host) {
         $host = 'https://www.php.net';
@@ -37,6 +53,10 @@ function main($argc, array $argv)
 
         echo PHP_EOL;
     }
+
+    $result = ob_get_clean();
+    file_put_contents(CACHE_FILE, $result);
+    echo $result;
 
     return 0;
 }

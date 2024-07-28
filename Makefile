@@ -4,7 +4,7 @@ tz := "Asia/Tokyo"
 PHP_NET_HOST := www.php.net
 pecl_version := ""
 export CXXFLAGS=-std=c++11
-export PKG_CONFIG_PATH=$(shell brew --prefix openssl@1.1)/lib/pkgconfig
+#export PKG_CONFIG_PATH=$(shell brew --prefix openssl@3)/lib/pkgconfig
 
 help: ## このヘルプを表示する
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -15,7 +15,7 @@ setup: ~/.php/ ## スクリプトを色々セットアップ
 ~/.php/:
 	mkdir ~/.php/
 	echo export 'PATH=~/.php/current/bin:$PATH' >> ~/.bash_profile
-	brew install autoconf re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg bzip2 libiconv zlib
+	brew install autoconf re2c bison icu4c openssl curl readline libxml2 libgd libpng libjpeg bzip2 libiconv zlib pkg-config
 
 .PHONY: current
 current: ## 現在のphp version
@@ -75,7 +75,7 @@ php-$(version)/sapi/cli/php: php-$(version)
 		--enable-exif \
 		--enable-soap \
 		--enable-sockets \
-		--with-openssl="$(shell brew --prefix openssl@1.1)" \
+		--with-openssl="$(shell brew --prefix openssl@3)" \
 		--with-curl=$(shell brew --prefix curl) \
 		--with-readline=$(shell brew --prefix readline) \
 		--with-libxml-dir=$(shell brew --prefix libxml2) \
